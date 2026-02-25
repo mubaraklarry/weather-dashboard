@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SearchBar from './components/SearchBar'
 import LoadingSpinner from './components/LoadingSpinner'
 import RecentSearches from './components/RecentSearches'
@@ -8,7 +8,14 @@ function App() {
   const [weather, setWeather] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [recentCities, setRecentCities] = useState([])
+  const [recentCities, setRecentCities] = useState(() => {
+    const saved = localStorage.getItem('recentCities')
+    return saved ? JSON.parse(saved) : []
+  })
+
+  useEffect(() => {
+    localStorage.setItem('recentCities', JSON.stringify(recentCities))
+  }, [recentCities])
 
   const handleSearch = async (city) => {
     setLoading(true)
