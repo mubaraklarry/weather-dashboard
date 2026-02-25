@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import SearchBar from './components/SearchBar'
 import LoadingSpinner from './components/LoadingSpinner'
+import RecentSearches from './components/RecentSearches'
 import { getWeather } from './services/weatherService'
 
 function App() {
   const [weather, setWeather] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [recentCities, setRecentCities] = useState([])
 
   const handleSearch = async (city) => {
     setLoading(true)
@@ -16,6 +18,11 @@ function App() {
     try {
       const data = await getWeather(city)
       setWeather(data)
+
+      // Add to recent searches (max 5, no duplicates)
+      if (!recentCities.includes(city)) {
+        setRecentCities(prev => [city, ...prev].slice(0, 5))
+      }
     } catch (err) {
       setError(err.message)
     } finally {
@@ -31,6 +38,8 @@ function App() {
         </h1>
 
         <SearchBar onSearch={handleSearch} />
+
+        <RecentSearches recentCities={recentCities} onSelect={handleSearch} />
 
         {loading && <LoadingSpinner />}
 
