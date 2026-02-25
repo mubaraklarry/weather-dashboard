@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import SearchBar from './components/SearchBar'
+import LoadingSpinner from './components/LoadingSpinner'
 import { getWeather } from './services/weatherService'
 
 function App() {
@@ -31,12 +32,12 @@ function App() {
 
         <SearchBar onSearch={handleSearch} />
 
-        {loading && (
-          <p className="text-center mt-8 text-gray-600">Loading weather...</p>
-        )}
+        {loading && <LoadingSpinner />}
 
         {error && (
-          <p className="text-center mt-8 text-red-600 font-medium">{error}</p>
+          <p className="text-center mt-8 text-red-600 font-medium bg-red-50 p-4 rounded-lg">
+            {error}
+          </p>
         )}
 
         {weather && (
