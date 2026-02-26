@@ -27,7 +27,7 @@ function App() {
       setWeather(data)
 
       if (!recentCities.includes(city)) {
-        setRecentCities(prev => [city, ...prev].slice(0, 5))
+        setRecentCities((prev) => [city, ...prev].slice(0, 5))
       }
     } catch (err) {
       setError(err.message)
@@ -50,39 +50,31 @@ function App() {
         {loading && <LoadingSpinner />}
 
         {error && (
-  <div className="mt-8 max-w-md mx-auto bg-red-50 border border-red-200 rounded-xl p-6 text-center shadow-sm">
-    <div className="flex flex-col items-center">
-      <svg 
-        className="w-12 h-12 text-red-500 mb-4" 
-        fill="none" 
-        stroke="currentColor" 
-        viewBox="0 0 24 24" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path 
-          strokeLinecap="round" 
-          strokeLinejoin="round" 
-          strokeWidth="2" 
-          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
-        />
-      </svg>
-
-      <h3 className="text-xl font-semibold text-red-700 mb-2">
-        City not found
-      </h3>
-
-      <p className="text-gray-600">
-        {error.includes('not found') 
-          ? "We couldn't find that city. Check the spelling or try another name."
-          : error}
-      </p>
-
-      <p className="text-sm text-gray-500 mt-4">
-        Examples: Accra, Lagos, London, New York
-      </p>
-    </div>
-  </div>
-)}
+          <div className="mt-8 max-w-md mx-auto bg-red-50 border border-red-200 rounded-xl p-6 text-center shadow-sm">
+            <svg
+              className="w-12 h-12 text-red-500 mx-auto mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <h3 className="text-xl font-semibold text-red-700 mb-2">City not found</h3>
+            <p className="text-gray-600">
+              {error.includes('not found')
+                ? "We couldn't find that city. Check spelling or try another name."
+                : error}
+            </p>
+            <p className="text-sm text-gray-500 mt-4">
+              Try: Accra, Lagos, London, New York
+            </p>
+          </div>
+        )}
 
         {weather && (
           <div className="mt-10 bg-white rounded-xl shadow-lg p-8 max-w-md mx-auto text-center">
