@@ -24,6 +24,6 @@ Setup & Installation
 3. Create .env and add API key
 4. npm run dev
 
-Live demo: vercel
+Live demo: https://weather-dashboard-ecru-beta.vercel.app/
 
 ALX Front-End Capstone Project.
